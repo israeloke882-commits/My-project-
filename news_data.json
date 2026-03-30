@@ -1,0 +1,19 @@
+
+[
+    {
+        "id": 1,
+        "title": "New 'Urgent Document' Scam Targets Corporate Employees",
+        "date": "2025-11-05",
+        "source": "CyberSec Weekly",
+        "summary": "A widespread phishing campaign is using fake 'urgent document' notifications to trick employees into revealing their login credentials. The emails contain links to a sophisticated fake login page.",
+        "text_sample": "Subject: Action Required: Review Important Document\n\nDear Employee,\n\nA critical document requires your immediate review. Please sign in to the secure portal using your company credentials to access it.\n\nClick here: http://sharepoint-corporate-docs.com/viewer\n\nThis link will expire in 2 hours.\n\nThank you,\nIT Services"
+    },
+    {
+        "id": 2,
+        "title": "Voicemail Phishing (Vishing) on the Rise",
+        "date": "2025-11-04",
+        "source": "The Security Ledger",
+        "summary": "Attackers are now using fake voicemail notifications to lure victims. The emails claim a new voicemail is waiting and provide a malicious link to 'listen' to the message.",
+        "text_sample": "Subject: You have a new Voicemail Message\n\nHello,\n\nYou have received a new voicemail from +1-800-555-1234.\n\nDuration: 0:45 seconds\n\nTo listen to this message, please access the secure portal below:\n\nListen Now: http://external-voicemail-service.net/play\n\nRegards,\nYour Phone System"
+    }
+]
