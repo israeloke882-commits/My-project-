@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gmail Inbox - PhishGuard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='background.css') }}">
+</head>
+<body class="bg-10">
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">🛡️ PhishGuard</div>
+            <div class="nav-links">
+                <a href="{{ url_for('main.index') }}">Dashboard</a>
+                <a href="{{ url_for('main.detect') }}">Detect</a>
+                <a href="{{ url_for('main.history') }}">History</a>
+                <a href="{{ url_for('gmail.list_emails') }}" class="active">Gmail</a>
+                <a href="{{ url_for('main.about') }}">About</a>
+                <div class="user-info">
+                    <img src="https://via.placeholder.com/32" alt="Profile" class="profile-img">
+                    <span>{{ user.email or 'User' }}</span>
+                </div>
+                <a href="{{ url_for('main.logout') }}" class="btn-secondary">Sign Out</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="history-section">
+        <div class="container">
+            <h1>Recent Inbox Emails</h1>
+            <p class="subtitle">Click an email to analyze it for phishing</p>
+
+            <div class="history-list">
+                {% if emails %}
+                    {% for email in emails %}
+                    <a href="#" class="history-card-link" onclick="analyzeEmail('{{ email.id }}'); return false;">
+                        <div class="history-card">
+                            <div class="history-header">
+                                <span class="history-badge">{{ email.sender }}</span>
+                            </div>
+                            <div class="history-content">
+                                <p class="history-text"><strong>{{ email.subject }}</strong> - {{ email.snippet }}</p>
+                            </div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                {% else %}
+                    <div class="empty-state">
+                        <p>Could not retrieve emails from your inbox.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Analysis Result Modal -->
+    <div id="analysisModal" class="modal-overlay hidden">
+        <div class="modal-card">
+            <div id="modal-content">
+                <!-- Results will be injected here by JavaScript -->
+            </div>
+            <button id="closeModalBtn" class="btn-large" style="margin-top: 2rem;">Close</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 PhishGuard. All rights reserved.</p>
+        </div>
+    </footer>
+
+<script>
+function analyzeEmail(messageId) {
+    const modal = document.getElementById('analysisModal');
+    const modalContent = document.getElementById('modal-content');
+
+    modalContent.innerHTML = `<div class="loading-section" style="background: none; box-shadow: none;"><div class="spinner"></div><p>Analyzing email...</p></div>`;
+    modal.style.display = 'flex';
+
+    fetch(`/google/analyze/${messageId}`)
+        .then(response => {
+            if (!response.ok) return response.json().then(err => { throw new Error(err.error || 'Unknown server error') });
+            return response.json();
+        })
+        .then(result => {
+            if (result.error) throw new Error(result.error);
+            
+            let resultHTML = `
+                <div class="result-card ${result.prediction.toLowerCase()}" style="border: none; box-shadow: none; padding: 1rem;">
+                    <div class="result-icon">${result.prediction === 'Phishing' ? '⚠️' : '✅'}</div>
+                    <h2 style="color: ${result.prediction === 'Phishing' ? '#e74c3c' : '#27ae60'};">${result.prediction}</h2>
+                    <div class="result-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Confidence:</span>
+                            <span class="detail-value">${(result.confidence * 100).toFixed(1)}%</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Detected by:</span>
+                            <span class="detail-value">${result.model_stage}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            modalContent.innerHTML = resultHTML;
+        })
+        .catch(error => {
+            modalContent.innerHTML = `<div class="error-section" style="text-align: center; padding: 1rem;"><p>❌ Failed to analyze email: ${error.message}</p></div>`;
+        });
+}
+
+function closeModal() {
+    document.getElementById('analysisModal').style.display = 'none';
+}
+
+// Event Listeners
+document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+
+window.addEventListener('click', function(event) {
+    const modal = document.getElementById('analysisModal');
+    if (event.target == modal) {
+        closeModal();
+    }
+});
+
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape' && document.getElementById('analysisModal').style.display !== 'none') {
+        closeModal();
+    }
+});
+</script>
+</body>
+</html>

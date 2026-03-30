@@ -1,0 +1,76 @@
+<!--
+    PhishGuard - Landing Page
+
+    Description:
+    The primary entry point for the PhishGuard application. This page introduces
+    the AI-powered cascading machine learning system and provides navigation
+    to authentication and about pages.
+
+    Key UI Sections:
+    1. Hero Section: High-level value proposition of the phishing detection system.
+    2. Features Section: Detailed breakdown of the 3-stage ML architecture:
+        - Stage 1: Logistic Regression (Fast lexical analysis)
+        - Stage 2: Random Forest (Non-linear pattern recognition)
+        - Stage 3: LSTM (Deep contextual neural network)
+    3. Navigation: Links to Login (OAuth) and About pages.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhishGuard - AI-Powered Phishing Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='background.css') }}">
+</head>
+<body class="bg-7">
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">🛡️ PhishGuard</div>
+            <div class="nav-links">
+                <a href="{{ url_for('main.about') }}">About</a>
+                <a href="{{ url_for('main.login') }}" class="btn-primary">Sign In</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Protect Yourself from Phishing Attacks</h1>
+                <p class="hero-subtitle">AI-powered cascading machine learning system that analyzes emails to detect phishing attempts with high accuracy</p>
+                <a href="{{ url_for('main.login') }}" class="btn-large">Get Started Free</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2>How PhishGuard Works</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Stage 1: Logistic Regression</h3>
+                    <p>Fast lexical pattern detection for obvious phishing indicators</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌳</div>
+                    <h3>Stage 2: Random Forest</h3>
+                    <p>Handles nonlinear patterns and ambiguous cases with ensemble learning</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3>Stage 3: LSTM</h3>
+                    <p>Deep contextual understanding using neural networks for complex phishing attempts</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 PhishGuard. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

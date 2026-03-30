@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phishing News - PhishGuard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='background.css') }}">
+</head>
+<body class="bg-11">
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">🛡️ PhishGuard</div>
+            <div class="nav-links">
+                <a href="{{ url_for('main.index') }}">Dashboard</a>
+                <a href="{{ url_for('main.detect') }}">Detect</a>
+                <a href="{{ url_for('main.history') }}">History</a>
+                <a href="{{ url_for('news.news_page') }}" class="active">News</a>
+                <a href="{{ url_for('main.about') }}">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="history-section">
+        <div class="container">
+            <h1>Latest Phishing News & Trends</h1>
+            <p class="subtitle">Stay updated on the latest threats and see real-world examples.</p>
+
+            <div class="news-list">
+                {% for article in articles %}
+                <div class="news-card">
+                    <h2>{{ article.title }}</h2>
+                    <div class="news-meta">
+                        <span>{{ article.date }}</span> | <span>Source: {{ article.source }}</span>
+                    </div>
+                    <p class="news-summary">{{ article.summary }}</p>
+                    <h4>Example Phishing Text:</h4>
+                    <pre class="news-sample">{{ article.text_sample }}</pre>
+                    <button class="btn-secondary" onclick="copyToClipboard(this, '{{ article.text_sample|escape }}')">Copy Sample</button>
+                </div>
+                {% else %}
+                <div class="empty-state">
+                    <p>No news articles found.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 PhishGuard. All rights reserved.</p>
+        </div>
+    </footer>
+
+<script>
+function copyToClipboard(button, text) {
+    // Create a temporary textarea to hold the text
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textArea);
+
+    // Provide feedback to the user
+    const originalText = button.innerHTML;
+    button.innerHTML = "Copied!";
+    setTimeout(() => {
+        button.innerHTML = originalText;
+    }, 2000);
+}
+</script>
+</body>
+</html>

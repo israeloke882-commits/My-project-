@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - PhishGuard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='background.css') }}">
+</head>
+<body class="bg-4">
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">🛡️ PhishGuard</div>
+            <div class="nav-links">
+                <a href="{{ url_for('main.index') }}">Dashboard</a>
+                <a href="{{ url_for('main.detect') }}">Detect</a>
+                <a href="{{ url_for('main.history') }}">History</a>
+                <a href="{{ url_for('gmail.list_emails') }}">Gmail</a>
+                <a href="{{ url_for('main.about') }}">About</a>
+                <div class="user-info">
+                    <img src="https://via.placeholder.com/32" alt="Profile" class="profile-img">
+                    <span>{{ user.email or 'User' }}</span>
+                </div>
+                <a href="{{ url_for('main.logout') }}" class="btn-secondary">Sign Out</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="dashboard">
+        <div class="container">
+            <h1>Welcome back{% if user.first_name %}, {{ user.first_name }}{% endif %}!</h1>
+            <p class="subtitle">Use PhishGuard to protect yourself from phishing attacks</p>
+            
+            <div class="action-cards">
+                <a href="{{ url_for('main.detect') }}" class="action-card">
+                    <div class="action-icon">🔍</div>
+                    <h3>Analyze Email</h3>
+                    <p>Check if an email is phishing or legitimate</p>
+                </a>
+                <a href="{{ url_for('main.history') }}" class="action-card">
+                    <div class="action-icon">📜</div>
+                    <h3>View History</h3>
+                    <p>See your past email analysis results</p>
+                </a>
+                <a href="{{ url_for('gmail.list_emails') }}" class="action-card">
+                    <div class="action-icon">📧</div>
+                    <h3>Scan Gmail Inbox</h3>
+                    <p>Connect to Gmail to analyze recent emails</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 PhishGuard. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

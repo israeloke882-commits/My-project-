@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - PhishGuard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='background.css') }}">
+</head>
+<body class="bg-3">
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">🛡️ PhishGuard</div>
+            <div class="nav-links">
+                {% if current_user.is_authenticated %}
+                <a href="{{ url_for('main.index') }}">Dashboard</a>
+                <a href="{{ url_for('main.detect') }}">Detect</a>
+                <a href="{{ url_for('main.history') }}">History</a>
+                <a href="{{ url_for('gmail.list_emails') }}">Gmail</a>
+                {% endif %}
+                <a href="{{ url_for('main.about') }}" class="active">About</a>
+                {% if current_user.is_authenticated %}
+                <div class="user-info">
+                    <img src="https://via.placeholder.com/32" alt="Profile" class="profile-img">
+                    <span>{{ current_user.email or 'User' }}</span>
+                </div>
+                <a href="{{ url_for('main.logout') }}" class="btn-secondary">Sign Out</a>
+                {% else %}
+                <a href="{{ url_for('main.login') }}" class="btn-primary">Sign In</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <section class="about-section">
+        <div class="container">
+            <h1>About PhishGuard</h1>
+            
+            <div class="about-content">
+                <h2>Hybrid Cascading Machine Learning System</h2>
+                <p>PhishGuard uses a sophisticated three-stage cascading approach to detect phishing emails with high accuracy and efficiency.</p>
+
+                <div class="methodology">
+                    <h3>Our Methodology</h3>
+                    <div class="method-steps">
+                        <div class="method-step">
+                            <h4>Stage 1: Logistic Regression</h4>
+                            <p>The first line of defense performs fast lexical detection. It quickly identifies obvious phishing patterns using TF-IDF vectorization and linear classification. If confident (>70%), it makes an immediate decision.</p>
+                        </div>
+                        <div class="method-step">
+                            <h4>Stage 2: Random Forest</h4>
+                            <p>When Stage 1 is uncertain, the Random Forest ensemble handles nonlinear patterns and ambiguous cases. Using 100 decision trees, it captures complex relationships in the data.</p>
+                        </div>
+                        <div class="method-step">
+                            <h4>Stage 3: LSTM Neural Network</h4>
+                            <p>For the most challenging cases, our LSTM deep learning model provides contextual and semantic understanding. It analyzes email sequences to detect sophisticated phishing attempts.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tech-stack">
+                    <h3>Technology Stack</h3>
+                    <ul>
+                        <li><strong>Backend:</strong> Flask (Python)</li>
+                        <li><strong>Machine Learning:</strong> scikit-learn, TensorFlow/Keras</li>
+                        <li><strong>NLP Processing:</strong> NLTK, TF-IDF Vectorization</li>
+                        <li><strong>Database:</strong> SQLite (for local development)</li>
+                        <li><strong>Authentication:</strong> Flask-Login</li>
+                    </ul>
+                </div>
+
+                <div class="features-list">
+                    <h3>Key Features</h3>
+                    <ul>
+                        <li>Real-time phishing detection with confidence scores</li>
+                        <li>Cascading pipeline for optimal accuracy and speed</li>
+                        <li>Model transparency - see which stage made the decision</li>
+                        <li>Analysis history tracking for registered users</li>
+                        <li>Secure user authentication and data privacy</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 PhishGuard. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

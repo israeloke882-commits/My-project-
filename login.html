@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - PhishGuard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='background.css') }}">
+</head>
+<body class="bg-8">
+    <section class="auth-section">
+        <div class="auth-card">
+            <h2>Sign In</h2>
+            <form class="auth-form" method="post">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn-large">Login</button>
+            </form>
+            <a href="{{ url_for('gmail.login') }}" class="btn-large google-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25C22.56 11.45 22.49 10.68 22.36 9.92H12.27V14.1H18.19C17.92 15.75 17.06 17.14 15.68 18.05V20.66H19.45C21.45 18.83 22.56 15.83 22.56 12.25Z" fill="#4285F4"/><path d="M12.27 23.01C15.22 23.01 17.7 22.01 19.45 20.66L15.68 18.05C14.67 18.73 13.56 19.15 12.27 19.15C9.52 19.15 7.15 17.41 6.23 15H2.34V17.61C4.18 20.94 7.95 23.01 12.27 23.01Z" fill="#34A853"/><path d="M6.23 15C5.98 14.25 5.83 13.45 5.83 12.6C5.83 11.75 5.98 10.95 6.23 10.2H2.34C1.5 11.83 1 13.81 1 15.99C1 18.17 1.5 20.15 2.34 21.78L6.23 19.2C6.48 18.45 6.63 17.65 6.63 16.8C6.63 15.95 6.48 15.15 6.23 15Z" fill="#FBBC05"/><path d="M12.27 6.13C13.67 6.13 14.94 6.62 15.93 7.55L19.53 3.95C17.7 2.24 15.22 1.19 12.27 1.19C7.95 1.19 4.18 3.26 2.34 6.59L6.23 9.2C7.15 6.79 9.52 5.05 12.27 5.05V6.13Z" fill="#EA4335"/></svg>
+                <span>Login with Google</span>
+            </a>
+            <p class="auth-switch">Don't have an account? <a href="{{ url_for('main.register') }}">Register here</a>.</p>
+        </div>
+    </section>
+</body>
+</html>

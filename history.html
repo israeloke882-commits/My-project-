@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History - PhishGuard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='background.css') }}">
+</head>
+<body class="bg-6">
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">🛡️ PhishGuard</div>
+            <div class="nav-links">
+                <a href="{{ url_for('main.index') }}">Dashboard</a>
+                <a href="{{ url_for('main.detect') }}">Detect</a>
+                <a href="{{ url_for('main.history') }}" class="active">History</a>
+                <a href="{{ url_for('gmail.list_emails') }}">Gmail</a>
+                <a href="{{ url_for('main.about') }}">About</a>
+                <div class="user-info">
+                    <img src="https://via.placeholder.com/32" alt="Profile" class="profile-img">
+                    <span>{{ user.email or 'User' }}</span>
+                </div>
+                <a href="{{ url_for('main.logout') }}" class="btn-secondary">Sign Out</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="history-section">
+        <div class="container">
+            <h1>Analysis History</h1>
+            <p class="subtitle">Your recent email analysis results</p>
+
+            <div class="history-list">
+                {% if logs %}
+                    {% for log in logs %}
+                    <div class="history-card {% if log.prediction == 'Phishing' %}phishing{% else %}legitimate{% endif %}">
+                        <div class="history-header">
+                            <span class="history-badge">{{ log.prediction }}</span>
+                            <span class="history-date">{{ log.created_at.strftime('%b %d, %Y %H:%M') }}</span>
+                        </div>
+                        <div class="history-content">
+                            <p class="history-text">{{ log.email_text[:150] }}{% if log.email_text|length > 150 %}...{% endif %}</p>
+                        </div>
+                        <div class="history-footer">
+                            <span>Confidence: {{ "%.1f"|format(log.confidence * 100) }}%</span>
+                            <span>Model: {{ log.model_stage }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="empty-state">
+                        <p>No analysis history yet. <a href="{{ url_for('main.detect') }}">Analyze your first email</a></p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 PhishGuard. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

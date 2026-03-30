@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detect Phishing - PhishGuard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='background.css') }}">
+</head>
+<body class="bg-5">
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">🛡️ PhishGuard</div>
+            <div class="nav-links">
+                <a href="{{ url_for('main.index') }}">Dashboard</a>
+                <a href="{{ url_for('main.detect') }}" class="active">Detect</a>
+                <a href="{{ url_for('main.history') }}">History</a>
+                <a href="{{ url_for('gmail.list_emails') }}">Gmail</a>
+                <a href="{{ url_for('main.about') }}">About</a>
+                <div class="user-info">
+                    <img src="https://via.placeholder.com/32" alt="Profile" class="profile-img">
+                    <span>{{ user.email or 'User' }}</span>
+                </div>
+                <a href="{{ url_for('main.logout') }}" class="btn-secondary">Sign Out</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="detect-section">
+        <div class="container">
+            <h1>Advanced Threat Detection</h1>
+            <p class="subtitle">Analyze email content or URLs for phishing threats</p>
+
+            <div class="detect-container">
+                <div class="input-section">
+                    <div class="tabs">
+                        <button class="tab-link active" data-tab="email-tab">Analyze Email</button>
+                        <button class="tab-link" data-tab="url-tab">Analyze URL</button>
+                    </div>
+
+                    <div id="email-tab" class="tab-content active">
+                        <textarea id="emailText" placeholder="Paste your email subject and body here..."></textarea>
+                        <button id="analyzeBtn" class="btn-large">Analyze Email</button>
+                    </div>
+
+                    <div id="url-tab" class="tab-content">
+                        <input type="text" id="urlText" placeholder="Enter a URL to analyze, e.g., https://example.com">
+                        <button id="analyzeUrlBtn" class="btn-large">Analyze URL</button>
+                    </div>
+                </div>
+
+                <div id="resultSection" class="result-section hidden">
+                    <div id="resultCard" class="result-card">
+                        <div id="resultIcon" class="result-icon"></div>
+                        <h2 id="resultTitle"></h2>
+                        <div class="result-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Confidence:</span>
+                                <span id="confidence" class="detail-value"></span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Detected by:</span>
+                                <span id="modelStage" class="detail-value"></span>
+                            </div>
+                        </div>
+                        <div id="resultMessage" class="result-message"></div>
+                    </div>
+                </div>
+
+                <div id="loadingSection" class="loading-section hidden">
+                    <div class="spinner"></div>
+                    <p>Analyzing with ensemble ML pipeline...</p>
+                </div>
+
+                <div id="errorSection" class="error-section hidden">
+                    <p id="errorMessage"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 PhishGuard. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

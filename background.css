@@ -1,0 +1,33 @@
+
+body.bg-1, body.bg-2, body.bg-3, body.bg-4, body.bg-5, body.bg-6, body.bg-7, body.bg-8, body.bg-9, body.bg-10, body.bg-11 {
+    position: relative;
+    z-index: 1;
+}
+
+body.bg-1::before, body.bg-2::before, body.bg-3::before, body.bg-4::before, body.bg-5::before, body.bg-6::before, body.bg-7::before, body.bg-8::before, body.bg-9::before, body.bg-10::before, body.bg-11::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: blur(10px) brightness(1.2);
+    z-index: -1;
+    transform: scale(1.1);
+}
+
+/* Define a background for each page */
+body.bg-1::before { background-image: url('images/cyber_bg_1.jpg'); }
+body.bg-2::before { background-image: url('images/cyber_bg_2.jpg'); }
+body.bg-3::before { background-image: url('images/cyber_bg_3.jpg'); }
+body.bg-4::before { background-image: url('images/cyber_bg_4.jpg'); }
+body.bg-5::before { background-image: url('images/cyber_bg_5.jpg'); }
+body.bg-6::before { background-image: url('images/cyber_bg_6.jpg'); }
+body.bg-7::before { background-image: url('images/cyber_bg_7.jpg'); }
+body.bg-8::before { background-image: url('images/cyber_bg_8.jpg'); }
+body.bg-9::before { background-image: url('images/cyber_bg_9.jpg'); }
+body.bg-10::before { background-image: url('images/cyber_bg_10.jpg'); }
+body.bg-11::before { background-image: url('images/cyber_bg_11.jpg'); }
